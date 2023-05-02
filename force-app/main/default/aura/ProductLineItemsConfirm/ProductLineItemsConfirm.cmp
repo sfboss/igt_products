@@ -1,0 +1,81 @@
+<aura:component controller="ProductLineItemController">
+    <aura:attribute name="products" type="Object[]" access="public" />
+    <aura:attribute name="oppId" type="String" access="public" />
+    <aura:html tag="style">
+        .slds-modal__container{
+        max-width: 80rem !important;
+        width:100% !important;
+        }
+        .modal .picker .picker__holder {
+        overflow: visible;
+        }
+
+    </aura:html>
+    <lightning:overlayLibrary aura:id="overlayLib" />
+
+    <table class="slds-table slds-no-row-hover slds-table_bordered slds-table_fixed-layout slds-table_resizable-cols">
+        <thead>
+            <tr style="height:40px">
+                <th aria-label="product" aria-sort="none" class="slds-is-resizable slds-is-sortable" scope="col">
+                    Product
+                </th>
+                <th aria-label="Average Monthly Searches" aria-sort="none" class="slds-is-resizable slds-is-sortable"
+                    scope="col">
+                    Quantity
+                </th>
+                <th aria-label="Velocity" aria-sort="none" class="slds-is-resizable slds-is-sortable" scope="col">
+                    Sales Price
+                </th>
+                <th aria-label="Velocity" aria-sort="none" class="slds-is-resizable slds-is-sortable" scope="col">
+                    Date
+                </th>
+                <th aria-label="Velocity" aria-sort="none" class="slds-is-resizable slds-is-sortable" scope="col">
+                    Line Description
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <aura:iteration items="{!v.products}" var="product">
+                <tr>
+                    <th>
+                        <div class="slds-truncate" title="Analytics">
+                            <lightning:input type="text" name="name" value="{!product.Name}" variant="label-hidden" />
+                        </div>
+                    </th>
+                    <td role="gridcell">
+                        <div class="slds-truncate" title="ANTLY">
+                            <lightning:input type="text" name="name" value="{!product.quantity}"
+                                variant="label-hidden" />
+                        </div>
+                    </td>
+                    <td role="gridcell">
+                        <div class="slds-truncate" title="5000.00">
+                            <ui:inputCurrency value="{!product.salesprice}" />
+                        </div>
+                    </td>
+                    <td role="gridcell">
+                        <div class="slds-truncate" title="5000.00">
+                            <lightning:input type="date" name="name" value="{!product.date}" variant="label-hidden" />
+                        </div>
+                    </td>
+                    <td role="gridcell">
+                        <div class="slds-truncate" title="5000.00">
+                            <lightning:input type="text" name="name" value="{!product.description}"
+                                variant="label-hidden" />
+                        </div>
+                    </td>
+
+                </tr>
+            </aura:iteration>
+        </tbody>
+
+
+    </table>
+    <div style="height:200px"></div>
+    <div class="slds-modal__footer">
+        <lightning:button variant="neutral" label="Cancel" title="Cancel" onclick="{!c.closeModal}" />
+        <lightning:button variant="brand" label="Next" title="Cancel" onclick="{!c.handleSubmit}" />
+
+    </div>
+</aura:component>

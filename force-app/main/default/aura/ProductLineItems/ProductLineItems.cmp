@@ -1,0 +1,337 @@
+<aura:component
+    implements="lightning:actionOverride,force:hasRecordId,flexipage:availableForRecordHome,force:lightningQuickActionWithoutHeader,force:hasSObjectName"
+    controller="ProductLineItemController">
+    <aura:attribute name="renderObjBools" type="Object" />
+    <aura:attribute name="selectedProducts" type="Object[]" />
+    <aura:attribute name="products" type="Object[]" />
+    <aura:attribute name="numItemsSelected" type="Integer" default="0" />
+    <aura:attribute name="showModal" type="boolean" default="false" />
+    <aura:attribute name="showproductModal" type="boolean" default="false" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <lightning:overlayLibrary aura:id="overlayLib" />
+    <aura:html tag="style">
+        .slds-modal__container{
+        max-width: 80rem !important;
+        width:100% !important;
+        }
+    </aura:html>
+    <div class="demo-only demo-only_viewport">
+        <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="id-of-modalheader-h1"
+            class="slds-modal slds-fade-in-open slds-modal_medium">
+            <div class="slds-modal__container">
+                <div class="slds-modal__container slds-grow">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse">
+                        <div data-id="showproductModal" onclick="{!c.handleToggle}">
+                            <lightning:icon iconName="standard:close" size="small" />
+                        </div>
+                        <span class="slds-assistive-text">Cancel and close</span>
+                    </button>
+
+                    <div class="slds-modal__header">
+                        <h1 id="id-of-modalheader-h1" class="slds-text-heading_small">
+                            Add products
+                        </h1>
+                        <p class="slds-var-m-top_x-small">
+                            Select the products from Jurisdiction
+                        </p>
+                    </div>
+
+                    <div class="slds-modal__content slds-grid slds-nowrap" id="modal-content-id-1">
+                        <div class="slds-col slds-grid slds-grid_vertical slds-nowrap">
+                            <div class="slds-var-p-vertical_x-small slds-var-m-around_large slds-theme_shade">
+
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label slds-assistive-text"
+                                        for="example-unique-id-170" id="combobox-label-id-20">Search</label>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-combobox_container">
+                                            <div
+                                                class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click">
+                                                <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right"
+                                                    role="none">
+                                                    <input type="text" class="slds-input slds-combobox__input"
+                                                        id="example-unique-id-170" aria-autocomplete="list"
+                                                        aria-controls="example-unique-id-171" aria-expanded="false"
+                                                        aria-haspopup="listbox" autocomplete="off" role="combobox"
+                                                        placeholder="Search Salesforce" />
+                                                    <span
+                                                        class="slds-icon_container slds-icon-utility-search slds-input__icon slds-input__icon_right">
+                                                        <lightning:icon size="xx-small" iconName="standard:search" />
+                                                    </span>
+                                                </div>
+                                                <div id="example-unique-id-171"
+                                                    class="slds-dropdown slds-dropdown_length-5 " role="listbox">
+                                                    <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                                        <li role="presentation" class="slds-listbox__item">
+                                                            <div id="option1"
+                                                                class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small"
+                                                                role="option">
+                                                                <span class="slds-media__body">
+                                                                    <span class="slds-truncate" title="Option A">Option
+                                                                        A</span>
+                                                                </span>
+                                                            </div>
+                                                        </li>
+                                                        <li role="presentation" class="slds-listbox__item">
+                                                            <div id="option2"
+                                                                class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small"
+                                                                role="option">
+                                                                <span class="slds-media__body">
+                                                                    <span class="slds-truncate" title="Option B">Option
+                                                                        B</span>
+                                                                </span>
+                                                            </div>
+                                                        </li>
+                                                        <li role="presentation" class="slds-listbox__item">
+                                                            <div id="option3"
+                                                                class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small"
+                                                                role="option">
+                                                                <span class="slds-media__body">
+                                                                    <span class="slds-truncate" title="Option C">Option
+                                                                        C</span>
+                                                                </span>
+                                                            </div>
+                                                        </li>
+                                                        <li role="presentation" class="slds-listbox__item">
+                                                            <div id="option4"
+                                                                class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small"
+                                                                role="option">
+                                                                <span class="slds-media__body">
+                                                                    <span class="slds-truncate" title="Option D">Option
+                                                                        D</span>
+                                                                </span>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-pill_container_bare">
+                                    <ul class="slds-listbox slds-listbox_horizontal" role="listbox"
+                                        aria-label="Selected Options:" aria-orientation="horizontal">
+                                        <aura:iteration items="{!v.selectedProducts}" var="product">
+                                            <li class="slds-listbox-item" role="presentation">
+                                                <lightning:pill label="{!product}" onclick="{!c.handleRemoveProduct}" />
+                                            </li>
+                                        </aura:iteration>
+                                    </ul>
+                                </div>
+                                <div class="slds-text-title slds-var-m-top_x-small" aria-live="polite">
+                                    {!v.numItemsSelected} Item(s) Selected
+                                </div>
+                            </div>
+                            <div class="slds-scrollable slds-grow">
+                                <div class="slds-scrollable_none">
+                                    <table aria-multiselectable="true"
+                                        class="slds-table slds-no-row-hover slds-table_bordered slds-table_fixed-layout slds-table_resizable-cols"
+                                        role="grid" aria-label="Example product list">
+                                        <thead>
+                                            <tr class="slds-line-height_reset">
+                                                <th class="" scope="col" style="width: 2.75rem"></th>
+                                                <th aria-label="product" aria-sort="none" style="width: 250px"
+                                                    class="slds-is-resizable slds-is-sortable" scope="col">
+                                                    <a class="slds-th__action slds-text-link_reset" href="#"
+                                                        role="button" tabindex="-1">
+                                                        <span class="slds-assistive-text">Sort by: </span>
+                                                        <div
+                                                            class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                                                            <span class="slds-truncate" title="Name"> Name</span>
+                                                            <span
+                                                                class="slds-icon_container slds-icon-utility-arrowdown">
+                                                                <lightning:icon size="xx-small"
+                                                                    iconName="utility:arrowdown" />
+                                                            </span>
+                                                        </div>
+                                                    </a>
+                                                    <div class="slds-resizable">
+                                                        <input type="range" aria-label="Name column width"
+                                                            class=" slds-assistive-text" id="cell-resize-handle-65"
+                                                            max="1000" min="20" tabindex="-1" />
+                                                        <span class="slds-resizable__handle">
+                                                            <span class="slds-resizable__divider"></span>
+                                                        </span>
+                                                    </div>
+                                                </th>
+                                                <th aria-label="Average Monthly Searches" aria-sort="none"
+                                                    class="slds-is-resizable slds-is-sortable" scope="col">
+                                                    <a class="slds-th__action slds-text-link_reset" href="#"
+                                                        role="button" tabindex="-1">
+                                                        <span class="slds-assistive-text">Sort by: </span>
+                                                        <div
+                                                            class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                                                            <span class="slds-truncate"
+                                                                title="Average Monthly Searches"> Code</span>
+                                                            <span
+                                                                class="slds-icon_container slds-icon-utility-arrowdown">
+                                                                <lightning:icon size="xx-small"
+                                                                    iconName="utility:arrowdown" />
+                                                            </span>
+                                                        </div>
+                                                    </a>
+                                                    <div class="slds-resizable">
+                                                        <input type="range"
+                                                            aria-label="Average Monthly Searches column width"
+                                                            class="slds-resizable__input slds-assistive-text"
+                                                            id="cell-resize-handle-66" max="1000" min="20"
+                                                            tabindex="-1" />
+                                                        <span class="slds-resizable__handle">
+                                                            <span class="slds-resizable__divider"></span>
+                                                        </span>
+                                                    </div>
+                                                </th>
+                                                <th aria-label="Velocity" aria-sort="none"
+                                                    class="slds-is-resizable slds-is-sortable" scope="col">
+                                                    <a class="slds-th__action slds-text-link_reset" href="#"
+                                                        role="button" tabindex="-1">
+                                                        <span class="slds-assistive-text">Sort by: </span>
+                                                        <div
+                                                            class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                                                            <span class="slds-truncate" title="Velocity">List
+                                                                Price</span>
+                                                            <span
+                                                                class="slds-icon_container slds-icon-utility-arrowdown">
+                                                                <lightning:icon size="xx-small"
+                                                                    iconName="utility:arrowdown" />
+                                                            </span>
+                                                        </div>
+                                                    </a>
+                                                    <div class="slds-resizable">
+                                                        <input type="range" aria-label="Velocity column width"
+                                                            class="slds-resizable__input slds-assistive-text"
+                                                            id="cell-resize-handle-66" max="1000" min="20"
+                                                            tabindex="-1" />
+                                                        <span class="slds-resizable__handle">
+                                                            <span class="slds-resizable__divider"></span>
+                                                        </span>
+                                                    </div>
+                                                </th>
+                                                <th aria-label="Velocity" aria-sort="none"
+                                                    class="slds-is-resizable slds-is-sortable" scope="col">
+                                                    <a class="slds-th__action slds-text-link_reset" href="#"
+                                                        role="button" tabindex="-1">
+                                                        <span class="slds-assistive-text">Sort by: </span>
+                                                        <div
+                                                            class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                                                            <span class="slds-truncate" title="Velocity">
+                                                                Family</span>
+                                                            <span
+                                                                class="slds-icon_container slds-icon-utility-arrowdown">
+                                                                <lightning:icon size="xx-small"
+                                                                    iconName="utility:arrowdown" />
+                                                            </span>
+                                                        </div>
+                                                    </a>
+                                                    <div class="slds-resizable">
+                                                        <input type="range" aria-label="Velocity column width"
+                                                            class="slds-resizable__input slds-assistive-text"
+                                                            id="cell-resize-handle-66" max="1000" min="20"
+                                                            tabindex="-1" />
+                                                        <span class="slds-resizable__handle">
+                                                            <span class="slds-resizable__divider"></span>
+                                                        </span>
+                                                    </div>
+                                                </th>
+                                                <th aria-label="Velocity" aria-sort="none"
+                                                    class="slds-is-resizable slds-is-sortable" scope="col">
+                                                    <a class="slds-th__action slds-text-link_reset" href="#"
+                                                        role="button" tabindex="-1">
+                                                        <span class="slds-assistive-text">Sort by: </span>
+                                                        <div
+                                                            class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                                                            <span class="slds-truncate" title="Velocity">
+                                                                Description</span>
+                                                            <span
+                                                                class="slds-icon_container slds-icon-utility-arrowdown">
+                                                                <lightning:icon size="xx-small"
+                                                                    iconName="utility:arrowdown" />
+                                                            </span>
+                                                        </div>
+                                                    </a>
+                                                    <div class="slds-resizable">
+                                                        <input type="range" aria-label="Velocity column width"
+                                                            class="slds-resizable__input slds-assistive-text"
+                                                            id="cell-resize-handle-66" max="1000" min="20"
+                                                            tabindex="-1" />
+                                                        <span class="slds-resizable__handle">
+                                                            <span class="slds-resizable__divider"></span>
+                                                        </span>
+                                                    </div>
+                                                </th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <aura:iteration items="{!v.products}" var="product">
+                                                <tr aria-selected="{!product.isSelected}"
+                                                    class="{!IF(product.isSelected==true,'slds-hint-parent slds-is-selected','slds-hint-parent')}">
+                                                    <td class="slds-text-align_right" role="gridcell" tabindex="0">
+                                                        <div onclick="{!c.handleRowSelection}" data-id="{!product.Id}">
+                                                            <label
+                                                                class="{!IF(product.isSelected==true,'slds-checkbox-button slds-checkbox-button_is-checked','slds-checkbox-button')}"
+                                                                for="example-unique-id-172">
+                                                                <input type="checkbox" class="slds-assistive-text"
+                                                                    id="{!product.Id}" value="{!product.isSelected}"
+                                                                    checked="[!product.isSelected]" tabindex="-1" />
+                                                                <span
+                                                                    class="slds-icon_container slds-icon-utility-check slds-current-color"
+                                                                    title="Description of icon when needed">
+                                                                    <lightning:icon size="xx-small"
+                                                                        iconName="utility:check" />
+                                                                    <span class="slds-assistive-text">Add
+                                                                        product</span>
+                                                                </span>
+                                                            </label>
+                                                        </div>
+                                                    </td>
+                                                    <th scope="row">
+                                                        <div class="slds-truncate" title="Analytics">
+                                                            {!product.Name}
+                                                        </div>
+                                                    </th>
+                                                    <td role="gridcell">
+                                                        <div class="slds-truncate" title="ANTLY">
+                                                            {!product.ProductCode}
+                                                        </div>
+                                                    </td>
+                                                    <td role="gridcell">
+                                                        <div class="slds-truncate" title="5000.00">
+                                                            <p>
+                                                                <lightning:formattedNumber value="{!product.listPrice}"
+                                                                    style="currency" currencyCode="USD" />
+                                                            </p>
+
+
+                                                        </div>
+                                                    </td>
+                                                    <td role="gridcell">
+                                                        <div class="slds-truncate" title="5000.00">
+                                                            {!product.Family}
+                                                        </div>
+                                                    </td>
+                                                    <td role="gridcell">
+                                                        <div class="slds-truncate" title="5000.00">
+                                                            {!product.Description}
+                                                        </div>
+                                                    </td>
+
+                                                </tr>
+                                            </aura:iteration>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-modal__footer">
+                        <lightning:button variant="neutral" label="Cancel" title="Cancel" onclick="{!c.handleToggle}" />
+                        <lightning:button variant="brand" label="Next" title="Cancel" onclick="{!c.handleNext}" />
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </div>
+</aura:component>
