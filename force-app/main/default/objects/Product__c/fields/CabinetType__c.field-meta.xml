@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField>
+    <fullName>CabinetType__c</fullName>
+    <type>Picklist</type>
+    <description>cabinet type</description>
+    <inlineHelpText>select cabinet type</inlineHelpText>
+    <required>true</required>
+    <securityClassification>Public</securityClassification>
+    <label>Cabinet Type</label>
+    <valueSet>
+        <valueSetDefinition>
+            <value>
+                <fullName>Cabinet 1</fullName>
+                <label>Cabinet 1</label>
+                <default>true</default>
+            </value>
+            <value>
+                <fullName>Cabinet 2</fullName>
+                <label>Cabinet 2</label>
+                <default>false</default>
+            </value>
+            <value>
+                <fullName>Cabinet 3</fullName>
+                <label>Cabinet 3</label>
+                <default>false</default>
+            </value>
+            <value>
+                <fullName>Cabinet 4</fullName>
+                <label>Cabinet 4</label>
+                <default>false</default>
+            </value>
+            <value>
+                <fullName>Cabinet 5</fullName>
+                <label>Cabinet 5</label>
+                <default>false</default>
+            </value>
+            <sorted>true</sorted>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

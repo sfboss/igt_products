@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField>
+    <fullName>SegmentType__c</fullName>
+    <type>Picklist</type>
+    <description>Select Segment Type</description>
+    <inlineHelpText>Select Segment Type</inlineHelpText>
+    <required>true</required>
+    <securityClassification>Public</securityClassification>
+    <label>Segment Type</label>
+    <valueSet>
+        <valueSetDefinition>
+            <value>
+                <fullName>Segment 1</fullName>
+                <label>Segment 1</label>
+                <default>true</default>
+            </value>
+            <value>
+                <fullName>Segment 2</fullName>
+                <label>Segment 2</label>
+                <default>false</default>
+            </value>
+            <value>
+                <fullName>Segment 3</fullName>
+                <label>Segment 3</label>
+                <default>false</default>
+            </value>
+            <value>
+                <fullName>Segment 4</fullName>
+                <label>Segment 4</label>
+                <default>false</default>
+            </value>
+            <value>
+                <fullName>Segment 5</fullName>
+                <label>Segment 5</label>
+                <default>false</default>
+            </value>
+            <sorted>true</sorted>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

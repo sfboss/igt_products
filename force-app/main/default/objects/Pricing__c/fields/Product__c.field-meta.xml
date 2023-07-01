@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField>
+    <fullName>Product__c</fullName>
+    <type>Lookup</type>
+    <description>Product Lookup</description>
+    <inlineHelpText>Product Lookup</inlineHelpText>
+    <securityClassification>Public</securityClassification>
+    <label>Product</label>
+    <referenceTo>Product__c</referenceTo>
+    <relationshipLabel>Pricings</relationshipLabel>
+    <relationshipName>Pricings</relationshipName>
+    <deleteConstraint>SetNull</deleteConstraint>
+</CustomField>

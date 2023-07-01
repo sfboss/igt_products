@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField>
+    <fullName>ThemeType__c</fullName>
+    <type>Picklist</type>
+    <description>Select theme type</description>
+    <inlineHelpText>Select Theme Type</inlineHelpText>
+    <required>true</required>
+    <securityClassification>Public</securityClassification>
+    <label>Theme Type</label>
+    <valueSet>
+        <valueSetDefinition>
+            <value>
+                <fullName>Theme 1</fullName>
+                <label>Theme 1</label>
+                <default>true</default>
+            </value>
+            <value>
+                <fullName>Theme 2</fullName>
+                <label>Theme 2</label>
+                <default>false</default>
+            </value>
+            <value>
+                <fullName>Theme 3</fullName>
+                <label>Theme 3</label>
+                <default>false</default>
+            </value>
+            <value>
+                <fullName>Theme 4</fullName>
+                <label>Theme 4</label>
+                <default>false</default>
+            </value>
+            <value>
+                <fullName>Theme 5</fullName>
+                <label>Theme 5</label>
+                <default>false</default>
+            </value>
+            <sorted>true</sorted>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

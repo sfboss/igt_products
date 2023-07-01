@@ -14,4 +14,13 @@ public with sharing class ProductLineItemService {
         }
         return products;
     }
+
+    @AuraEnabled
+    public static Component__c[] getComponents(){
+        try {
+           return [SELECT Name,Price__c FROM Component__c];
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
 }

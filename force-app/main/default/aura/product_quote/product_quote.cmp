@@ -1,0 +1,61 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global" controller="ProductLineItemService">
+    <aura:attribute name="components" type="List" />
+    <aura:attribute name="selectedComponents" type="List" default="[]" />
+    <aura:attribute name="overallPrice" type="Decimal" default="0" />
+    <aura:attribute name="componentColumns" type="List" />
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+
+    <!-- Product -->
+    <lightning:card title="Product">
+        <lightning:icon iconName="standard:product" size="small" alternativeText="Product Icon" />
+        <!-- add recordEdit for Product__c fields-->
+        <lightning:recordEditForm aura:id="productForm" objectApiName="Product__c">
+            <lightning:messages />
+            <lightning:inputField fieldName="Name" />
+            <!-- add cabinettype,segmenttype,themetype-->
+            <lightning:inputField fieldName="CabinetType__c" />
+            <lightning:inputField fieldName="SegmentType__c" />
+            <lightning:inputField fieldName="ThemeType__c" />
+        </lightning:recordEditForm>
+        <lightning:button label="Save" onclick="{!c.saveProduct}" />
+    </lightning:card>
+
+    <!-- Component -->
+    <lightning:card title="Component">
+        <lightning:icon iconName="standard:component" size="small" alternativeText="Component Icon" />
+        <lightning:inputField aura:id="componentName" fieldName="Name" />
+        <lightning:inputField aura:id="componentPrice" fieldName="Price__c" />
+        <lightning:button label="Add Component" onclick="{!c.addComponent}" />
+    </lightning:card>
+
+    <!-- Components DataTable -->
+    <lightning:card title="Components">
+        <lightning:datatable aura:id="componentsTable" columns="{!v.componentColumns}" data="{!v.components}"
+            keyField="Id">
+            <lightning:icon icon-name="utility:add" variant="bare" alternative-text="Add" size="x-small" title="Add"
+                onclick="{!c.selectComponent}" data-row="{!index}" />
+        </lightning:datatable>
+    </lightning:card>
+
+    <!-- Pricing -->
+    <lightning:card title="Pricing">
+        <lightning:icon iconName="standard:pricebook" size="small" alternativeText="Pricing Icon" />
+        <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+            <thead>
+                <tr class="slds-text-heading_label">
+                    <th scope="col">Component Name</th>
+                    <th scope="col">Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <aura:iteration items="{!v.selectedComponents}" var="component">
+                    <tr>
+                        <td>{!component.Name}</td>
+                        <td>{!component.Price__c}</td>
+                    </tr>
+                </aura:iteration>
+            </tbody>
+        </table>
+        <div>Overall Price: {!v.overallPrice}</div>
+    </lightning:card>
+</aura:component>

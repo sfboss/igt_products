@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField>
+    <fullName>Component__c</fullName>
+    <type>Lookup</type>
+    <description>Component Lookup</description>
+    <inlineHelpText>Component Lookup</inlineHelpText>
+    <securityClassification>Public</securityClassification>
+    <label>Component</label>
+    <referenceTo>Component__c</referenceTo>
+    <relationshipLabel>Pricings</relationshipLabel>
+    <relationshipName>Pricings</relationshipName>
+    <deleteConstraint>SetNull</deleteConstraint>
+</CustomField>

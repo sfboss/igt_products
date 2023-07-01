@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField>
+    <fullName>ComponentName__c</fullName>
+    <type>Text</type>
+    <length>255</length>
+    <description>Component Name</description>
+    <inlineHelpText>Select a component name</inlineHelpText>
+    <required>true</required>
+    <unique>false</unique>
+    <securityClassification>Public</securityClassification>
+    <label>Component Name</label>
+</CustomField>

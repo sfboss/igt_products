@@ -47,7 +47,7 @@ package.json
 jest.config.js
 .prettierrc
 .prettierignore
-config
-.sfdx
-.husky
-.vscode
+config/
+.sfdx/
+.husky/
+.vscode/

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField>
+    <fullName>Price__c</fullName>
+    <type>Currency</type>
+    <scale>2</scale>
+    <precision>16</precision>
+    <description>Price</description>
+    <inlineHelpText>Price</inlineHelpText>
+    <required>true</required>
+    <securityClassification>Public</securityClassification>
+    <label>Price</label>
+</CustomField>
